@@ -28,12 +28,12 @@
 
 Hyperspectral (HSI) and multispectral (MSI) images are complementary:
 
-| | Spatial dimensions & Pixels | Spectral resolution & Bands |
-|---|:---:|:---:|
-| **HSI ($\mathbf{H}$)** | low ($l_h \times c_h$, $n_h$ pixels) | high ($b_h$ bands, 100+) |
-| **MSI ($\mathbf{M}$)** | high ($l_m \times c_m$, $n_m$ pixels) | low ($b_m$ bands, a few) |
+|                          |  Spatial dimensions & number of pixels | Spectral resolution & number of bands |
+| ------------------------ | :------------------------------------: | :-----------------------------------: |
+| **HSI (\(\mathbf{H}\))** |  low (\(n_h = l_h \times c_h\) pixels) |       high (\(b_h\) bands, 100+)      |
+| **MSI (\(\mathbf{M}\))** | high (\(n_m = l_m \times c_m\) pixels) |       low (\(b_m\) bands, a few)      |
 
-**Goal:** reconstruct a fused hyperspectral image that has the **spatial grid of the MSI** ($l_m \times c_m$) and the **spectral content of the HSI** ($b_h$ bands).
+**Goal:** reconstruct a fused hyperspectral image F that has the **spatial grid of the MSI** and the **spectral content of the HSI**.
 
 **Idea:** an entropic **Fused Gromov-Wasserstein (FGW)** transport plan matches the voxels of the two images, *without requiring a common embedding space and without interpolation*. The plan is then used to transfer the HSI spectra onto the MSI spatial grid.
 
