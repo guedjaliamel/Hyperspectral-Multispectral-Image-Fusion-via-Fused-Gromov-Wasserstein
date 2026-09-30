@@ -45,43 +45,27 @@ Hyperspectral (HSI) and multispectral (MSI) images are complementary:
 
 ## Method
 
-Let $n_1 = l_m c_m b_m$ and $n_2 = l_h c_h b_h$ be the numbers of voxels of M and H. The optimal transport plan $P \in \mathbb{R}_+^{n_1 \times n_2}$ coupling the marginals $\mu$ and $\nu$ minimizes:
+The FGW problem combines two terms, balanced by α:
 
 ```math
-\mathrm{FGW}_{\alpha,\varepsilon}(\mu,\nu) = \min_{P \in \Pi(\mu,\nu)} (1-\alpha)\langle C, P \rangle + \alpha \sum_{q,q',r,r'} |A_{qq'} - B_{rr'}|^2 P_{qr} P_{q'r'} - \varepsilon H(P)
+\min_{P \in \Pi(\mu,\nu)} (1-\alpha) \langle C, P \rangle + \alpha \sum_{q,q',r,r'} |A_{qq'} - B_{rr'}|^2 P_{qr} P_{q'r'} - \varepsilon H(P)
 ```
-
-where $\alpha \in [0,1]$ balances the spectral term against the structural term, $(q,q')$ index voxels of M and $(r,r')$ voxels of H.
 
 | Term | Role |
 |---|---|
-| **C** ∈ ℝ<sup>n₁×n₂</sup> — spectral cost | Spectral Angle Mapper (SAM) between MSI spectra and HSI spectra projected onto the MSI bands |
-| **A** ∈ ℝ<sup>n₁×n₁</sup>, **B** ∈ ℝ<sup>n₂×n₂</sup> — structure matrices | Intra-image spatial-spectral distances (spatial coordinates + η-weighted spectral coordinate) |
+| **C** — spectral cost | Spectral Angle Mapper (SAM) between MSI spectra and HSI spectra projected to the MSI bands |
+| **A, B** — structure matrices | Intra-image spatial-spectral distances (spatial coordinates + η-weighted spectral coordinate) |
 | **ε** | Entropic regularization (solved with Sinkhorn iterations, via [POT](https://pythonot.github.io/)) |
-
-**Spectral cost.** With $s_i$ the spectrum of MSI pixel $i$ and $\tilde{s}_j = D h_j$ the spectrum of HSI pixel $j$ projected onto the MSI bands by the spectral response $D$:
-
-```math
-C_{ij} = \arccos\left(\frac{\langle s_i, \tilde{s}_j \rangle}{\lVert s_i \rVert \lVert \tilde{s}_j \rVert}\right)
-```
-
-**Structure matrices.** For two pixels $i$ and $i'$ with spatial coordinates $(u,v)$ and spectral coordinate $z$:
-
-```math
-d(i,i') = (u_i - u_{i'})^2 + (v_i - v_{i'})^2 + \eta\,(z_i - z_{i'})^2
-```
-
-where $\eta > 0$ balances the spectral contribution relative to the spatial distance (this is the parameter η<sub>M</sub> / η<sub>H</sub> in the [Configuration](#configuration) table).
 
 > **Third-party code.** The entropic FGW solver is **not our own implementation**: it relies on the [POT (Python Optimal Transport)](https://github.com/PythonOT/POT) library ([documentation](https://pythonot.github.io/)), specifically [`ot.gromov.entropic_fused_gromov_wasserstein`](https://pythonot.github.io/_modules/ot/gromov/_bregman.html#entropic_fused_gromov_wasserstein). Our contribution is the construction of the cost and structure matrices (C, A, B) for hyperspectral/multispectral images and the reconstruction from the transport plan.
 
-**Reconstruction.** The optimal plan $P^\star \in \mathbb{R}_+^{(n_m b_m)\times(n_h b_h)}$ is reshaped into a tensor $T \in \mathbb{R}_+^{n_m \times b_m \times n_h \times b_h}$, where $T_{ikjl}$ is the mass transported between MSI voxel $(k,i)$ and HSI voxel $(l,j)$. The fused image is obtained by marginalizing over the MSI spectral dimension and the HSI spatial dimension:
+**Reconstruction.** The optimal plan is reshaped into a tensor `T[i, k, j, l]` (MSI pixel *i*, MSI band *k*, HSI pixel *j*, HSI band *l*) and marginalized:
 
 ```math
-F_{il} = \sum_{k=1}^{b_m} \sum_{j=1}^{n_h} T_{ikjl}, \quad i = 1,\dots,n_m, \; l = 1,\dots,b_h
+F_{il} = \sum_{k=1}^{b_m} \sum_{j=1}^{n_h} T_{ikjl}
 ```
 
-The matrix $F \in \mathbb{R}_+^{n_m \times b_h}$ is reshaped to the MSI spatial grid ($n_m = l_m c_m$), giving the fused cube of size $l_m \times c_m \times b_h$: the spatial resolution comes from M and the spectral dimension from H, without interpolation.
+The result is reshaped to the MSI spatial grid, giving the fused cube of size `l_m × c_m × b_h`.
 
 ## Quick start
 
@@ -137,7 +121,7 @@ All parameters can be changed in `main.py` for custom experiments.
 
 ## Results
 
-FGW is compared with **HMWB** and **B-SCOTT**. **Bold** = best. FGW obtains the best CC and ERGAS on Pavia University, and the best value on all four metrics on Indian Pines.
+FGW is compared with **HMWB** and **B-SCOTT**. **Bold** = best.
 
 ### Pavia University
 
