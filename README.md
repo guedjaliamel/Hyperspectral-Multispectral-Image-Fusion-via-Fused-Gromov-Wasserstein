@@ -145,15 +145,15 @@ Each figure shows, from left to right: reference, MSI, HSI, HMWB, FGW.
 
 #### Pavia University
 
-![Pavia University band 25](results/pavia/figures/pavia_FGW_m01_h25.png)
+![Pavia University band 25](results/pavia/figures/pavia_EFGW_m01_h25.png)
 
-![Pavia University band 75](results/pavia/figures/pavia_FGW_m04_h75.png)
+![Pavia University band 75](results/pavia/figures/pavia_EFGW_m04_h75.png)
 
 #### Indian Pines
 
-![Indian Pines band 46](results/indian_pines/figures/indian_pines_FGW_m01_h46.png)
+![Indian Pines band 46](results/indian_pines/figures/indian_pines_EFGW_m01_h46.png)
 
-![Indian Pines band 118](results/indian_pines/figures/indian_pines_FGW_m03_h118.png)
+![Indian Pines band 118](results/indian_pines/figures/indian_pines_EFGW_m03_h118.png)
 
 ### Spectral signatures
 
