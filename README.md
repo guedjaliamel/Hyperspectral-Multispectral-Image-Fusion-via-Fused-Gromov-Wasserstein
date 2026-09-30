@@ -16,7 +16,6 @@
 - [Configuration](#configuration)
 - [Results](#results)
 - [Repository structure](#repository-structure)
-- [Evaluation metrics](#evaluation-metrics)
 - [Citation](#citation)
 - [References](#references)
 - [Funding](#funding)
@@ -53,13 +52,8 @@ The FGW problem combines two terms, balanced by α:
 
 > **Third-party code.** The entropic FGW solver is **not our own implementation**: it relies on the [POT (Python Optimal Transport)](https://github.com/PythonOT/POT) library ([documentation](https://pythonot.github.io/)), specifically [`ot.gromov.entropic_fused_gromov_wasserstein`](https://pythonot.github.io/_modules/ot/gromov/_bregman.html#entropic_fused_gromov_wasserstein). Our contribution is the application and adaptation of the FGW framework to hyperspectral-multispectral image fusion, including the construction of the cost and structure matrices (C, A, B) for hyperspectral/multispectral images, as well as the reconstruction of the fused image from the resulting transport plan.
 
-**Reconstruction.** The optimal plan is reshaped into a tensor `T[i, k, j, l]` (MSI pixel *i*, MSI band *k*, HSI pixel *j*, HSI band *l*) and marginalized:
+**Reconstruction.** The optimal transport plan is marginalized to obtain the spatial dimensions of the MSI and the spectral dimensions of the HSI, yielding the fused hyperspectral image.
 
-```math
-F_{il} = \sum_{k=1}^{b_m} \sum_{j=1}^{n_h} T_{ikjl}
-```
-
-The result is reshaped to the MSI spatial grid, giving the fused cube of size `l_m × c_m × b_h`.
 
 ## Quick start
 
@@ -190,15 +184,6 @@ Spectra of selected pixels (reference vs. HMWB vs. FGW).
 
 The method is called **FGW** in the paper and this README; some output filenames keep the internal `efgw` (entropic FGW) name.
 B-SCOTT results come from its original implementation (see [References](#references)) and are not recomputed by `main.py`.
-
-## Evaluation metrics
-
-| Metric | Meaning | Better |
-|---|---|:---:|
-| **SAM** | Spectral Angle Mapper (rad) | lower |
-| **CC** | Cross-correlation | higher |
-| **R-SNR** | Reconstruction signal-to-noise ratio (dB) | higher |
-| **ERGAS** | Relative dimensionless global synthesis error | lower |
 
 ## Citation
 
