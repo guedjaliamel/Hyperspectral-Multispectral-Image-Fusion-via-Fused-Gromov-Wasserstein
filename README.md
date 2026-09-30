@@ -18,7 +18,6 @@
 - [Repository structure](#repository-structure)
 - [Citation](#citation)
 - [References](#references)
-- [Funding](#funding)
 - [Authors](#authors)
 
 ---
@@ -199,10 +198,6 @@ A BibTeX entry will be added here once the paper is accepted.
 - T. Vayer et al., *Fused Gromov-Wasserstein distance for structured objects: theoretical foundations and mathematical properties*. [arXiv:1811.02834](https://arxiv.org/abs/1811.02834)
 - M. Mifdal et al., *Hyperspectral image fusion using Wasserstein barycenters* (HMWB). [HAL 01620601v1](https://hal.science/hal-01620601)
 - C. Prévost, K. Usevich, P. Comon and D. Brie, *Hyperspectral Super-Resolution with Coupled Tucker Approximation: Recoverability and SVD-based Algorithms* (B-SCOTT), IEEE Transactions on Signal Processing, 2020. [HAL hal-01911969](https://hal.science/hal-01911969) — implementation: [cprevost4/HSR_Software](https://github.com/cprevost4/HSR_Software)
-
-## Funding
-
-Supported by the **ANR France 2030 – PEPR Sous-sol, InnovTech project**, grant **ANR-22-EXSS-0006**.
 
 ## Authors
 
