@@ -47,9 +47,9 @@ Hyperspectral (HSI) and multispectral (MSI) images are complementary:
 
 The FGW problem combines two terms, balanced by α:
 
-$$
-\min_{P \in \Pi(\mu,\nu)} \; (1-\alpha)\,\langle C, P\rangle \;+\; \alpha \sum_{q,q',r,r'} |A_{qq'} - B_{rr'}|^2\, P_{qr}P_{q'r'} \;-\; \varepsilon H(P)
-$$
+```math
+\min_{P \in \Pi(\mu,\nu)} (1-\alpha) \langle C, P \rangle + \alpha \sum_{q,q',r,r'} |A_{qq'} - B_{rr'}|^2 P_{qr} P_{q'r'} - \varepsilon H(P)
+```
 
 | Term | Role |
 |---|---|
@@ -61,9 +61,9 @@ $$
 
 **Reconstruction.** The optimal plan is reshaped into a tensor `T[i, k, j, l]` (MSI pixel *i*, MSI band *k*, HSI pixel *j*, HSI band *l*) and marginalized:
 
-$$
-F_{il} = \sum_{k}\sum_{j} T_{ikjl}
-$$
+```math
+F_{il} = \sum_{k=1}^{b_m} \sum_{j=1}^{n_h} T_{ikjl}
+```
 
 The result is reshaped to the MSI spatial grid, giving the fused cube of size `l_m × c_m × b_h`.
 
@@ -143,31 +143,29 @@ FGW is compared with **HMWB** and **B-SCOTT**. **Bold** = best.
 
 Each figure shows, from left to right: reference, MSI, HSI, HMWB, FGW.
 
-<table>
-  <tr>
-    <th>Pavia University</th>
-    <th>Indian Pines</th>
-  </tr>
-  <tr>
-    <td><img src="results/pavia/figures/pavia_FGW_m01_h25.png" alt="Pavia band 25"><br><sub>band 25</sub></td>
-    <td><img src="results/indian_pines/figures/indian_pines_FGW_m01_h46.png" alt="Indian Pines band 46"><br><sub>band 46</sub></td>
-  </tr>
-  <tr>
-    <td><img src="results/pavia/figures/pavia_FGW_m04_h75.png" alt="Pavia band 75"><br><sub>band 75</sub></td>
-    <td><img src="results/indian_pines/figures/indian_pines_FGW_m03_h118.png" alt="Indian Pines band 118"><br><sub>band 118</sub></td>
-  </tr>
-</table>
+#### Pavia University
+
+![Pavia University band 25](results/pavia/figures/pavia_FGW_m01_h25.png)
+
+![Pavia University band 75](results/pavia/figures/pavia_FGW_m04_h75.png)
+
+#### Indian Pines
+
+![Indian Pines band 46](results/indian_pines/figures/indian_pines_FGW_m01_h46.png)
+
+![Indian Pines band 118](results/indian_pines/figures/indian_pines_FGW_m03_h118.png)
 
 ### Spectral signatures
 
-Spectra of selected pixels (reference vs. HMWB vs. FGW):
+Spectra of selected pixels (reference vs. HMWB vs. FGW).
 
-<table>
-  <tr>
-    <td><img src="results/pavia/figures/pavia_signatures.png" alt="Pavia signatures"><br><sub>Pavia University</sub></td>
-    <td><img src="results/indian_pines/figures/indian_pines_signatures.png" alt="Indian Pines signatures"><br><sub>Indian Pines</sub></td>
-  </tr>
-</table>
+#### Pavia University
+
+![Pavia University spectral signatures](results/pavia/figures/pavia_signatures.png)
+
+#### Indian Pines
+
+![Indian Pines spectral signatures](results/indian_pines/figures/indian_pines_signatures.png)
 
 > **Note.** This is a proof of concept. FGW is currently much slower than HMWB, and scaling to larger images (e.g. with low-rank approximations) is future work.
 
@@ -215,7 +213,7 @@ A BibTeX entry will be added here once the paper is accepted.
 - R. Flamary et al., *POT: Python Optimal Transport*, Journal of Machine Learning Research, 2021. Code: [PythonOT/POT](https://github.com/PythonOT/POT)
 - T. Vayer et al., *Fused Gromov-Wasserstein distance for structured objects: theoretical foundations and mathematical properties*. [arXiv:1811.02834](https://arxiv.org/abs/1811.02834)
 - M. Mifdal et al., *Hyperspectral image fusion using Wasserstein barycenters* (HMWB). [HAL 01620601v1](https://hal.science/hal-01620601)
-- C. Prévost et al., B-SCOTT — implementation: [cprevost4/HSR_Software](https://github.com/cprevost4/HSR_Software)
+- C. Prévost, K. Usevich, P. Comon and D. Brie, *Hyperspectral Super-Resolution with Coupled Tucker Approximation: Recoverability and SVD-based Algorithms* (B-SCOTT), IEEE Transactions on Signal Processing, 2020. [HAL hal-01911969](https://hal.science/hal-01911969) — implementation: [cprevost4/HSR_Software](https://github.com/cprevost4/HSR_Software)
 
 ## Funding
 
