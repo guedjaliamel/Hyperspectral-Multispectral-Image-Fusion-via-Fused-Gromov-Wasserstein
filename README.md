@@ -88,7 +88,7 @@ Both datasets are already included in the `data/` folder. Original sources are g
 | Pavia University | 103 | 50 × 50 | `data/PaviaU.mat` | [Kaggle](https://www.kaggle.com/code/ardaorcun/hyperspectral-paviau?select=PaviaU.mat) |
 | Indian Pines | 200 | 40 × 40 | `data/indianpinearray.npy` | [Kaggle](https://www.kaggle.com/datasets/abhijeetgo/indian-pines-hyperspectral-dataset/data?select=indianpinearray.npy) |
 
-**Simulation protocol.** The extract is the reference image. The HSI is obtained by Gaussian low-pass filtering, spatial subsampling and additive Gaussian noise. The MSI (6 bands) is obtained by Gaussian spectral response and additive noise. Both images are normalized to sum to 1.
+**Simulation protocol.** The extract is the reference image. The HSI is obtained by Gaussian low-pass filtering, spatial subsampling and additive Gaussian noise. The MSI (6 bands) is obtained by Gaussian spectral response and additive noise. 
 
 ## Configuration
 

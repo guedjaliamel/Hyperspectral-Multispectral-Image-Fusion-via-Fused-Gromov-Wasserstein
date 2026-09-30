@@ -47,7 +47,7 @@ from src.visualization import (
 # DATASET SELECTION
 # =========================================================================
 
-DATASET = "indian_pines"
+DATASET = "pavia"
 
 # Available options:
 #

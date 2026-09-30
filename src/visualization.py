@@ -261,7 +261,7 @@ def plot_spectral_signatures(
     fig, axes = plt.subplots(
         1,
         len(cubes_s),
-        figsize=(8, 2.8)
+        figsize=(15, 2.8)
     )
 
     if len(cubes_s) == 1:
@@ -344,7 +344,7 @@ def plot_spectral_signatures(
 
         ax.legend(
             fontsize=8,
-            ncol=1,
+            ncol=2,
             frameon=True,
             handlelength=2.0,
             labelspacing=0.3,
