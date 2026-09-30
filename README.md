@@ -16,7 +16,6 @@
 - [Configuration](#configuration)
 - [Results](#results)
 - [Repository structure](#repository-structure)
-- [Citation](#citation)
 - [References](#references)
 - [Authors](#authors)
 
@@ -184,13 +183,6 @@ Spectra of selected pixels (reference vs. HMWB vs. FGW).
 The method is called **FGW** in the paper and this README; some output filenames keep the internal `efgw` (entropic FGW) name.
 B-SCOTT results come from its original implementation (see [References](#references)) and are not recomputed by `main.py`.
 
-## Citation
-
-The associated paper is currently under review. If you use this code in the meantime, please refer to this repository and to the paper title:
-
-> A. Guedjali, EH. Djermoune, P. Catala and S. Delchini, *Fused Gromov-Wasserstein for Hyperspectral-Multispectral Image Fusion*, submitted to ICASSP 2027.
-
-A BibTeX entry will be added here once the paper is accepted.
 
 ## References
 
