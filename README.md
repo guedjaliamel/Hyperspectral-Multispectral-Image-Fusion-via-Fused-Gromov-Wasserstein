@@ -49,7 +49,7 @@ The FGW problem combines two terms, balanced by α:
 |---|---|
 | **C** — spectral cost | Spectral Angle Mapper (SAM) between MSI spectra and HSI spectra projected to the MSI bands |
 | **A, B** — structure matrices | Intra-image spatial-spectral distances (spatial coordinates + η-weighted spectral coordinate) |
-| **ε** | Entropic regularization (solved with Sinkhorn iterations, via [POT](https://pythonot.github.io/)) |
+| **ε** | Entropic regularization (solved with Sinkhorn iterations) |
 
 > **Third-party code.** The entropic FGW solver is **not our own implementation**: it relies on the [POT (Python Optimal Transport)](https://github.com/PythonOT/POT) library ([documentation](https://pythonot.github.io/)), specifically [`ot.gromov.entropic_fused_gromov_wasserstein`](https://pythonot.github.io/_modules/ot/gromov/_bregman.html#entropic_fused_gromov_wasserstein). Our contribution is the construction of the cost and structure matrices (C, A, B) for hyperspectral/multispectral images and the reconstruction from the transport plan.
 
