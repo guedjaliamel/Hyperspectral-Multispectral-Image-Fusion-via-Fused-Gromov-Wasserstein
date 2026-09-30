@@ -5,12 +5,6 @@
   A. Guedjali, EH. Djermoune, P. Catala, S. Delchini — <i>submitted to ICASSP 2027</i>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/python-3.9%2B-blue" alt="Python">
-  <img src="https://img.shields.io/badge/POT-Optimal%20Transport-orange" alt="POT">
-  <img src="https://img.shields.io/badge/status-research%20code-lightgrey" alt="Status">
-</p>
-
 ---
 
 ## Table of contents
