@@ -12,8 +12,6 @@ This work is associated with the manuscript:
 > *Fused Gromov-Wasserstein for Hyperspectral-Multispectral Image Fusion*,
 > submitted to ICASSP 2027.
 
----
-
 ## Repository structure
 
 ```text
@@ -25,6 +23,7 @@ Hyperspectral-Multispectral-Image-Fusion-via-Fused-Gromov-Wasserstein/
 ├── .gitignore
 │
 ├── src/
+│   ├── __init__.py
 │   ├── data.py
 │   ├── fgw.py
 │   ├── reconstruction.py
@@ -38,28 +37,27 @@ Hyperspectral-Multispectral-Image-Fusion-via-Fused-Gromov-Wasserstein/
 │
 └── results/
     ├── pavia/
+    │   ├── pavia_efgw.npy
+    │   ├── pavia_hmwb.npy
+    │   ├── metrics.txt
+    │   └── figures/
+    │
     └── indian_pines/
+        ├── indian_pines_efgw.npy
+        ├── indian_pines_hmwb.npy
+        ├── metrics.txt
+        └── figures/
 ```
-
----
 
 ## Requirements
 
-Python 3 with:
+Python 3.9+ is recommended.
 
-* NumPy
-* SciPy
-* POT
-* Matplotlib
-* scikit-image
-
-Install the dependencies:
+Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
-
----
 
 ## Datasets
 
@@ -69,7 +67,7 @@ pip install -r requirements.txt
 
 **Experimental patch:** 50 × 50 × 103
 
-Dataset: [Pavia University — Kaggle](https://www.kaggle.com/code/ardaorcun/hyperspectral-paviau?select=PaviaU.mat)
+Dataset: <a href="https://www.kaggle.com/code/ardaorcun/hyperspectral-paviau?select=PaviaU.mat" target="_blank">Pavia University — Kaggle</a>
 
 Place the dataset at:
 
@@ -85,7 +83,7 @@ The MATLAB variable is `paviaU`.
 
 **Experimental patch:** 40 × 40 × 200
 
-Dataset: [Indian Pines — Kaggle](https://www.kaggle.com/datasets/abhijeetgo/indian-pines-hyperspectral-dataset/data?select=indianpinearray.npy)
+Dataset: <a href="https://www.kaggle.com/datasets/abhijeetgo/indian-pines-hyperspectral-dataset/data?select=indianpinearray.npy" target="_blank">Indian Pines — Kaggle</a>
 
 Place the dataset at:
 
@@ -93,37 +91,36 @@ Place the dataset at:
 data/indianpinearray.npy
 ```
 
----
-
 ## Method
 
-The proposed method uses **Fused Gromov-Wasserstein (FGW)** optimal transport to combine spectral information and spatial-spectral structure.
+The proposed approach formulates hyperspectral-multispectral fusion as an **entropic Fused Gromov-Wasserstein (FGW)** transport problem.
 
-The implementation is provided in:
+FGW jointly exploits:
+
+* spectral similarity between MSI and HSI observations;
+* spatial-spectral structural relationships within each modality.
+
+The optimal transport plan is used to reconstruct the fused hyperspectral image on the spatial grid of the MSI.
+
+The FGW implementation is available in:
 
 ```text
 src/fgw.py
 ```
 
-The fused hyperspectral image is reconstructed from the optimal transport plan using:
+The reconstruction from the transport plan is implemented in:
 
 ```text
 src/reconstruction.py
 ```
 
-### Baselines
-
-**HMWB** is implemented in:
+For comparison, HMWB is implemented in:
 
 ```text
 src/hmwb.py
 ```
 
-**B-SCOTT** is used as an external reference method. Its implementation is not included in this repository.
-
-Original implementation: [HSR_Software](https://github.com/cprevost4/HSR_Software)
-
----
+B-SCOTT is used as an external comparison method and is not implemented in this repository.
 
 ## Run
 
@@ -145,97 +142,88 @@ Then run:
 python main.py
 ```
 
-The script automatically:
-
-* loads the dataset;
-* extracts the experimental patch;
-* generates the MSI and HSI observations;
-* computes the FGW transport plan;
-* reconstructs the fused HSI;
-* runs HMWB;
-* computes the evaluation metrics;
-* generates the visualizations.
-
----
-
-# Results
-
-## Pavia University
-
-| Method  | SAM (rad) ↓ |     CC ↑ | R-SNR (dB) ↑ |  ERGAS ↓ |
-| :------ | ----------: | -------: | -----------: | -------: |
-| FGW     |        0.16 | **0.97** |        17.17 | **4.01** |
-| B-SCOTT |    **0.10** |     0.95 |    **17.82** |     4.02 |
-| HMWB    |        0.25 |     0.90 |        12.61 |     6.52 |
-
-### Image comparisons
-
-![Pavia band 1](results/pavia/figures/pavia_EFGW_m00_h09.png)
-
-![Pavia band 2](results/pavia/figures/pavia_EFGW_m01_h25.png)
-
-![Pavia band 3](results/pavia/figures/pavia_EFGW_m02_h42.png)
-
-![Pavia band 4](results/pavia/figures/pavia_EFGW_m03_h58.png)
-
-![Pavia band 5](results/pavia/figures/pavia_EFGW_m04_h75.png)
-
-![Pavia band 6](results/pavia/figures/pavia_EFGW_m05_h92.png)
-
-### Spectral signatures
-
-[View Pavia spectral signatures](results/pavia/figures/pavia_signatures.pdf)
-
----
-
-## Indian Pines
-
-| Method  | SAM (rad) ↓ |     CC ↑ | R-SNR (dB) ↑ |  ERGAS ↓ |
-| :------ | ----------: | -------: | -----------: | -------: |
-| FGW     |    **0.07** | **0.99** |    **22.96** | **2.06** |
-| B-SCOTT |        0.12 |     0.59 |         4.26 |    13.02 |
-| HMWB    |        0.61 |     0.62 |         2.79 |    18.28 |
-
-### Image comparisons
-
-![Indian Pines band 1](results/indian_pines/figures/indian_pines_EFGW_m00_h10.png)
-
-![Indian Pines band 2](results/indian_pines/figures/indian_pines_EFGW_m01_h46.png)
-
-![Indian Pines band 3](results/indian_pines/figures/indian_pines_EFGW_m02_h82.png)
-
-![Indian Pines band 4](results/indian_pines/figures/indian_pines_EFGW_m03_h118.png)
-
-![Indian Pines band 5](results/indian_pines/figures/indian_pines_EFGW_m04_h154.png)
-
-![Indian Pines band 6](results/indian_pines/figures/indian_pines_EFGW_m05_h190.png)
-
-### Spectral signatures
-
-[View Indian Pines spectral signatures](results/indian_pines/figures/indian_pines_signatures.pdf)
-
----
-
-## Evaluation
-
-The reconstructed images are evaluated using:
-
-* **SAM** — Spectral Angle Mapper;
-* **CC** — Correlation Coefficient;
-* **R-SNR** — Reconstruction Signal-to-Noise Ratio;
-* **ERGAS** — Relative Global Dimensional Error.
-
-The implementation is available in:
+The reconstructed images, metrics and figures are saved in:
 
 ```text
-src/evaluation.py
+results/
 ```
 
----
+## Results
+
+The following results correspond to the experiments reported in the ICASSP 2027 manuscript.
+
+### Pavia University
+
+| Method  | SAM (rad) |       CC | R-SNR (dB) |    ERGAS |
+| ------- | --------: | -------: | ---------: | -------: |
+| FGW     |      0.16 | **0.97** |      17.17 | **4.01** |
+| B-SCOTT |  **0.10** |     0.95 |  **17.82** |     4.02 |
+| HMWB    |      0.25 |     0.90 |      12.61 |     6.52 |
+
+### Indian Pines
+
+| Method  | SAM (rad) |       CC | R-SNR (dB) |    ERGAS |
+| ------- | --------: | -------: | ---------: | -------: |
+| FGW     |  **0.07** | **0.99** |  **22.96** | **2.06** |
+| B-SCOTT |      0.12 |     0.59 |       4.26 |    13.02 |
+| HMWB    |      0.61 |     0.62 |       2.79 |    18.28 |
+
+## Visual Results
+
+The following figures are the same visual comparisons presented in the paper.
+
+The image order in each figure is:
+
+**Reference → MSI → HSI → HMWB → FGW**
+
+### Pavia University
+
+**Band 25**
+
+![Pavia University - Band 25](results/pavia/figures/pavia_EFGW_m01_h25.png)
+
+**Band 75**
+
+![Pavia University - Band 75](results/pavia/figures/pavia_EFGW_m04_h75.png)
+
+### Indian Pines
+
+**Band 46**
+
+![Indian Pines - Band 46](results/indian_pines/figures/indian_pines_EFGW_m01_h46.png)
+
+**Band 118**
+
+![Indian Pines - Band 118](results/indian_pines/figures/indian_pines_EFGW_m03_h118.png)
+
+## Spectral Signatures
+
+The paper reports spectral signatures for **4 selected pixels** for each dataset.
+
+The order of the curves is:
+
+**Reference → HMWB → FGW**
+
+### Pavia University
+
+<a href="results/pavia/figures/pavia_signatures.pdf" target="_blank">View Pavia University spectral signatures</a>
+
+### Indian Pines
+
+<a href="results/indian_pines/figures/indian_pines_signatures.pdf" target="_blank">View Indian Pines spectral signatures</a>
+
+## Evaluation Metrics
+
+The fusion quality is evaluated using:
+
+* **SAM** — Spectral Angle Mapper
+* **CC** — Cross-Correlation
+* **R-SNR** — Reconstruction Signal-to-Noise Ratio
+* **ERGAS** — Erreur Relative Globale Adimensionnelle de Synthèse
 
 ## Output
 
-Results are stored in:
+Results are stored separately for each dataset:
 
 ```text
 results/
@@ -252,45 +240,40 @@ results/
     └── figures/
 ```
 
-The current output filenames contain `efgw` for compatibility with the existing implementation. The proposed method is referred to as **FGW** throughout the documentation and manuscript.
-
----
+The output filenames retain `efgw` for compatibility with the current implementation. The proposed method is referred to as **FGW** throughout the manuscript and README.
 
 ## References
 
 ### Fused Gromov-Wasserstein
 
-T. Vayer, L. Chapel, R. Flamary, R. Tavenard, and N. Courty.
-
+T. Vayer, L. Chapel, R. Flamary, R. Tavenard, and N. Courty,
 *Fused Gromov-Wasserstein distance for structured objects: theoretical foundations and mathematical properties.*
 
-[arXiv:1811.02834](https://arxiv.org/abs/1811.02834)
-
-### B-SCOTT
-
-C. Prévost et al.
-
-*Hyperspectral super-resolution with coupled Tucker approximation.*
-
-[HSR_Software](https://github.com/cprevost4/HSR_Software)
+<a href="https://arxiv.org/abs/1811.02834" target="_blank">FGW — arXiv</a>
 
 ### HMWB
 
-Wasserstein barycenter-based hyperspectral-multispectral image fusion.
+M. Mifdal et al.,
+*Hyperspectral image fusion using Wasserstein barycenters.*
 
-[HAL: hal-01620601](https://hal.science/hal-01620601v1)
+<a href="https://hal.science/hal-01620601v1" target="_blank">HMWB — HAL</a>
 
----
+### B-SCOTT
+
+B-SCOTT implementation:
+
+<a href="https://github.com/cprevost4/HSR_Software" target="_blank">B-SCOTT — HSR_Software</a>
 
 ## Funding
 
-This work is supported by **ANR France 2030 – PEPR Sous-sol**, through the **InnovTech** project (ANR-22-EXSS-0006).
-
----
+This work was supported by the French Research Agency (ANR) under France 2030 – PEPR Sous-sol program for the InnovTech project (ANR-22-EXSS-0006).
 
 ## Authors
 
 **Amel Guedjali** — Université de Lorraine, CNRS, CRAN, France
+
 **El-Hadi Djermoune** — Université de Lorraine, CNRS, CRAN, France
+
 **Paul Catala** — Université de Lorraine, CNRS, CRAN, France
+
 **Sylvain Delchini** — BRGM, Orléans, France
