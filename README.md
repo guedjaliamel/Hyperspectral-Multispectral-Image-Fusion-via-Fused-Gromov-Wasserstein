@@ -28,10 +28,10 @@
 
 Hyperspectral (HSI) and multispectral (MSI) images are complementary:
 
-|                          |  Spatial dimensions & number of pixels | Spectral resolution & number of bands |
-| ------------------------ | :------------------------------------: | :-----------------------------------: |
-| **HSI (\(\mathbf{H}\))** |  low (\(n_h = l_h \times c_h\) pixels) |       high (\(b_h\) bands, 100+)      |
-| **MSI (\(\mathbf{M}\))** | high (\(n_m = l_m \times c_m\) pixels) |       low (\(b_m\) bands, a few)      |
+| | Spatial resolution | Spectral resolution |
+|---|:---:|:---:|
+| **HSI** | low | high (100+ bands) |
+| **MSI** | high | low (a few bands) |
 
 **Goal:** reconstruct a fused hyperspectral image F that has the **spatial grid of the MSI** and the **spectral content of the HSI**.
 
