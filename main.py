@@ -661,7 +661,7 @@ def main():
 
     signatures_path = os.path.join(
         figures_dir,
-        f"{DATASET}_signatures.pdf"
+        f"{DATASET}_signatures.png"
     )
 
     plot_spectral_signatures(

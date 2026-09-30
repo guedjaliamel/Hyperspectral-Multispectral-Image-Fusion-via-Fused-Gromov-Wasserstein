@@ -8,7 +8,7 @@ SAM: 0.070934
 CC: 0.989462
 R-SNR: 22.958286
 ERGAS: 2.062329
-Time: 374.20 s
+Time: 390.41 s
 
 HMWB
 ------------------------------
@@ -16,6 +16,6 @@ SAM: 0.606918
 CC: 0.623581
 R-SNR: 2.793210
 ERGAS: 18.281326
-Time: 60.03 s
-HMWB optimization time: 59.95 s
+Time: 61.06 s
+HMWB optimization time: 60.79 s
 

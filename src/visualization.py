@@ -231,7 +231,7 @@ def plot_spectral_signatures(
         Labels corresponding to the cubes.
 
     save_path : str
-        Output PDF path.
+        Output PNG path.
     """
 
     if len(cubes) != len(labels):
@@ -362,9 +362,14 @@ def plot_spectral_signatures(
             exist_ok=True
         )
 
+    # --------------------------------------------------------
+    # Save PNG
+    # --------------------------------------------------------
+
     plt.savefig(
         save_path,
-        format="pdf",
+        format="png",
+        dpi=300,
         bbox_inches="tight"
     )
 
@@ -373,3 +378,4 @@ def plot_spectral_signatures(
     print(
         f"Spectral signatures saved: {save_path}"
     )
+
